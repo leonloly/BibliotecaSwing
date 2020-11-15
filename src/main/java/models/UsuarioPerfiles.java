@@ -91,7 +91,7 @@ public class UsuarioPerfiles {
         String sql = "SELECT * FROM usuario_perfiles where codigo = " + id;
         ResultSet rs = mysql.query(sql, null);
         try {
-            rs.first();
+            rs.next();
             return new UsuarioPerfiles(
                     rs.getInt(1),
                     rs.getString(2)

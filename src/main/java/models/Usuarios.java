@@ -128,7 +128,7 @@ public class Usuarios {
         String sql = "SELECT * FROM usuarios where codigo = " + id;
         ResultSet rs = mysql.query(sql, null);
         try {
-            rs.first();
+            rs.next();
             return new Usuarios(
                         rs.getInt(1),
                         rs.getString(2),

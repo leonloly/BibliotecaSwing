@@ -42,6 +42,9 @@ public class MovimientoEstados {
     }
 
     public List<Movimientos> getMovimientosList() {
+        if(this.movimientosList == null){
+            this.movimientosList = (new Movimientos().ListbyMovimientoDetalles(this.codigo));
+        }
         return movimientosList;
     }
 
@@ -91,7 +94,7 @@ public class MovimientoEstados {
         String sql = "SELECT * FROM movimiento_estados where codigo = " + id;
         ResultSet rs = mysql.query(sql, null);
         try {
-            rs.first();
+            rs.next();
             return new MovimientoEstados(
                     rs.getInt(1),
                     rs.getString(2)

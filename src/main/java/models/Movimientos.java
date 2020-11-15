@@ -1,6 +1,7 @@
 package models;
 
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -11,19 +12,19 @@ import utils.JDBCMySQL;
 public class Movimientos {
 
     private Integer codigo;
-    private Date fechaPrestamo;
     private MovimientoEstados estado;
     private Usuarios usuario;
+    private Date fechaPrestamo;
     private List<MovimientoDetalles> movimientoDetallesList;
 
     public Movimientos() {
     }
 
-    public Movimientos(Integer codigo, Date fechaPrestamo, MovimientoEstados estado, Usuarios usuario) {
+    public Movimientos(Integer codigo, MovimientoEstados estado, Usuarios usuario, Date fechaPrestamo) {
         this.codigo = codigo;
-        this.fechaPrestamo = fechaPrestamo;
         this.estado = estado;
         this.usuario = usuario;
+        this.fechaPrestamo = fechaPrestamo;
     }
 
     public Movimientos(Integer codigo) {
@@ -36,14 +37,6 @@ public class Movimientos {
 
     public void setCodigo(Integer codigo) {
         this.codigo = codigo;
-    }
-
-    public Date getFechaPrestamo() {
-        return fechaPrestamo;
-    }
-
-    public void setFechaPrestamo(Date fechaPrestamo) {
-        this.fechaPrestamo = fechaPrestamo;
     }
 
     public MovimientoEstados getEstado() {
@@ -62,8 +55,16 @@ public class Movimientos {
         this.usuario = usuario;
     }
 
+    public Date getFechaPrestamo() {
+        return fechaPrestamo;
+    }
+
+    public void setFechaPrestamo(Date fechaPrestamo) {
+        this.fechaPrestamo = fechaPrestamo;
+    }
+
     public List<MovimientoDetalles> getMovimientoDetallesList() {
-        if(this.movimientoDetallesList ==null){
+        if (this.movimientoDetallesList == null) {
             return this.movimientoDetallesList = (new MovimientoDetalles().ListbyCajonLibros(this.codigo));
         }
         return movimientoDetallesList;
@@ -74,6 +75,8 @@ public class Movimientos {
     }
 
     public boolean save() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String fecha = format.format(this.fechaPrestamo);
         try {
             Map<String, Object> params = new HashMap<>();
             String query = "insert into movimientos(codigo,estado,usuario,fecha_prestamo) values(:codigo,:estado,:usuario,:fecha_prestamo)";
@@ -83,7 +86,7 @@ public class Movimientos {
             }
             params.put("estado", this.estado);
             params.put("usuario", this.usuario);
-            params.put("fecha_prestamo", this.fechaPrestamo);
+            params.put("fecha_prestamo", fecha);
             JDBCMySQL msql = new JDBCMySQL();
             return msql.execute(query, params);
         } catch (Exception e) {
@@ -98,7 +101,7 @@ public class Movimientos {
     }
 
     public List<Movimientos> ListbyMovimientoDetalles(int id) {
-        return this.fillList("SELECT * FROM movimientos WHERE = codigo" + id);
+        return this.fillList("SELECT * FROM movimientos WHERE codigo=" + id);
     }
 
     public List<Movimientos> fillList(String sql) {
@@ -110,9 +113,9 @@ public class Movimientos {
             while (rs.next()) {
                 list.add(new Movimientos(
                         rs.getInt(1),
-                        rs.getDate(2),
-                        MovimientoEstados.find(rs.getInt(3)),
-                        Usuarios.find(rs.getInt(4))
+                        MovimientoEstados.find(rs.getInt(2)),
+                        Usuarios.find(rs.getInt(3)),
+                        rs.getDate(4)
                 ));
             }
         } catch (Exception e) {
@@ -130,9 +133,9 @@ public class Movimientos {
             rs.next();
             return new Movimientos(
                     rs.getInt(1),
-                    rs.getDate(2),
-                    MovimientoEstados.find(rs.getInt(3)),
-                    Usuarios.find(rs.getInt(4))
+                    MovimientoEstados.find(rs.getInt(2)),
+                    Usuarios.find(rs.getInt(3)),
+                    rs.getDate(4)
             );
         } catch (Exception e) {
             System.err.println("Error al obtener movimientos");
@@ -140,8 +143,9 @@ public class Movimientos {
         }
         return null;
     }
+
     public static void main(String[] args) {
-        Movimientos a = Movimientos.find(2);
-        System.out.println(a.getEstado().getNombre());
+        Movimientos a = Movimientos.find(1);
+        System.out.println(a.getCodigo());
     }
 }
