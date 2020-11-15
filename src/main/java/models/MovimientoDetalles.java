@@ -97,7 +97,7 @@ public class MovimientoDetalles {
     }
 
     public List<MovimientoDetalles> ListbyCajonLibros(int id) {
-        return this.fillList("SELECT * FROM movimiento_detalles WHERE = codigo" + id);
+        return this.fillList("SELECT * FROM movimiento_detalles WHERE codigo=" + id);
     }
 
     public List<MovimientoDetalles> fillList(String sql) {
@@ -140,11 +140,5 @@ public class MovimientoDetalles {
             System.err.println(e.getMessage());
         }
         return null;
-    }
-
-    public static void main(String[] args) {
-        MovimientoDetalles a = MovimientoDetalles.find(1);
-        System.out.println(a.getCodigo());
-        System.out.println(a.getCodigoMovimiento().getFechaPrestamo());
     }
 }

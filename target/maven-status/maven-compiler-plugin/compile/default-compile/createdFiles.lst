@@ -7,10 +7,12 @@ models\CajonLibros.class
 models\MovimientoDetalles.class
 models\Autores.class
 models\LibroClasificaciones.class
+view\JFLogin.class
 models\LibroTipos.class
 models\UsuarioPerfiles.class
 models\Proveedores.class
 models\Temas.class
+view\JFLogin$1.class
 models\Configuraciones.class
 models\Libros.class
 models\Cajones.class

@@ -143,9 +143,4 @@ public class Movimientos {
         }
         return null;
     }
-
-    public static void main(String[] args) {
-        Movimientos a = Movimientos.find(1);
-        System.out.println(a.getCodigo());
-    }
 }

@@ -126,12 +126,4 @@ public class Cajones {
         }
         return null;
     }
-
-    public static void main(String[] args) {
-        Cajones a = Cajones.find(1);
-        System.out.println(a.getCantidad());
-       for (CajonLibros lib : a.cajonLibrosList){
-            System.out.println(lib.getCodigo());
-        }
-    }
 }

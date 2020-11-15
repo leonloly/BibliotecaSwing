@@ -126,15 +126,4 @@ public class CajonLibros {
         }
         return null;
     }
-
-    public static void main(String[] args) {
-        CajonLibros a = CajonLibros.find(1);
-        System.out.println(a.getCodigo());
-        System.out.println(a.getCodigoCajon().getCantidad());
-        System.out.println(a.getCodigoLibro().getCodigoAutor().getNombre());
-        
-        for (MovimientoDetalles lib : a.movimientoDetallesList){
-            System.out.println(lib.getCodigo());
-        }
-    }
 }
