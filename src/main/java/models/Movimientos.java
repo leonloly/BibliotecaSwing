@@ -140,7 +140,6 @@ public class Movimientos {
         }
         return null;
     }
-
     public static void main(String[] args) {
         Movimientos a = Movimientos.find(2);
         System.out.println(a.getEstado().getNombre());
