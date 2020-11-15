@@ -11,20 +11,20 @@ import utils.JDBCMySQL;
 public class MovimientoDetalles {
 
     private Integer codigo;
-    private Date fechaEntrega;
-    private Integer diasPrestamos;
     private Movimientos codigoMovimiento;
     private CajonLibros librosCajon;
+    private Date fechaEntrega;
+    private Integer diasPrestamos;
 
     public MovimientoDetalles() {
     }
 
-    public MovimientoDetalles(Integer codigo, Date fechaEntrega, Integer diasPrestamos, Movimientos codigoMovimiento, CajonLibros librosCajon) {
+    public MovimientoDetalles(Integer codigo, Movimientos codigoMovimiento, CajonLibros librosCajon, Date fechaEntrega, Integer diasPrestamos) {
         this.codigo = codigo;
-        this.fechaEntrega = fechaEntrega;
-        this.diasPrestamos = diasPrestamos;
         this.codigoMovimiento = codigoMovimiento;
         this.librosCajon = librosCajon;
+        this.fechaEntrega = fechaEntrega;
+        this.diasPrestamos = diasPrestamos;
     }
 
     public MovimientoDetalles(Integer codigo) {
@@ -109,10 +109,10 @@ public class MovimientoDetalles {
             while (rs.next()) {
                 list.add(new MovimientoDetalles(
                         rs.getInt(1),
-                        rs.getDate(2),
-                        rs.getInt(3),
-                        Movimientos.find(rs.getInt(4)),
-                        CajonLibros.find(rs.getInt(5))
+                        Movimientos.find(rs.getInt(2)),
+                        CajonLibros.find(rs.getInt(3)),
+                        rs.getDate(4),
+                        rs.getInt(5)
                 ));
             }
         } catch (Exception e) {
@@ -130,10 +130,10 @@ public class MovimientoDetalles {
             rs.next();
             return new MovimientoDetalles(
                     rs.getInt(1),
-                    rs.getDate(2),
-                    rs.getInt(3),
-                    Movimientos.find(rs.getInt(4)),
-                    CajonLibros.find(rs.getInt(5))
+                        Movimientos.find(rs.getInt(2)),
+                        CajonLibros.find(rs.getInt(3)),
+                        rs.getDate(4),
+                        rs.getInt(5)
             );
         } catch (Exception e) {
             System.err.println("Error al obtener movimiento_detalles");
@@ -144,6 +144,7 @@ public class MovimientoDetalles {
 
     public static void main(String[] args) {
         MovimientoDetalles a = MovimientoDetalles.find(1);
+        System.out.println(a.getCodigo());
         System.out.println(a.getCodigoMovimiento().getFechaPrestamo());
     }
 }
