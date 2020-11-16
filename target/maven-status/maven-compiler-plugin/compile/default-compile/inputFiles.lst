@@ -2,6 +2,7 @@ C:\Users\leonl\Documents\NetBeansProjects\BibliotecaSwing\src\main\java\models\U
 C:\Users\leonl\Documents\NetBeansProjects\BibliotecaSwing\src\main\java\models\Configuraciones.java
 C:\Users\leonl\Documents\NetBeansProjects\BibliotecaSwing\src\main\java\models\Autores.java
 C:\Users\leonl\Documents\NetBeansProjects\BibliotecaSwing\src\main\java\models\Libros.java
+C:\Users\leonl\Documents\NetBeansProjects\BibliotecaSwing\src\main\java\view\JFPaises.java
 C:\Users\leonl\Documents\NetBeansProjects\BibliotecaSwing\src\main\java\models\LibroTipos.java
 C:\Users\leonl\Documents\NetBeansProjects\BibliotecaSwing\src\main\java\models\Paises.java
 C:\Users\leonl\Documents\NetBeansProjects\BibliotecaSwing\src\main\java\models\MovimientoEstados.java
@@ -11,10 +12,12 @@ C:\Users\leonl\Documents\NetBeansProjects\BibliotecaSwing\src\main\java\view\JFL
 C:\Users\leonl\Documents\NetBeansProjects\BibliotecaSwing\src\main\java\models\Movimientos.java
 C:\Users\leonl\Documents\NetBeansProjects\BibliotecaSwing\src\main\java\models\Temas.java
 C:\Users\leonl\Documents\NetBeansProjects\BibliotecaSwing\src\main\java\utils\JDBCMySQL.java
+C:\Users\leonl\Documents\NetBeansProjects\BibliotecaSwing\src\main\java\view\JFAutores.java
 C:\Users\leonl\Documents\NetBeansProjects\BibliotecaSwing\src\main\java\models\Estantes.java
 C:\Users\leonl\Documents\NetBeansProjects\BibliotecaSwing\src\main\java\models\Sucursales.java
 C:\Users\leonl\Documents\NetBeansProjects\BibliotecaSwing\src\main\java\models\LibroClasificaciones.java
 C:\Users\leonl\Documents\NetBeansProjects\BibliotecaSwing\src\main\java\models\MovimientoDetalles.java
 C:\Users\leonl\Documents\NetBeansProjects\BibliotecaSwing\src\main\java\utils\Validation.java
+C:\Users\leonl\Documents\NetBeansProjects\BibliotecaSwing\src\main\java\view\JFSucursales.java
 C:\Users\leonl\Documents\NetBeansProjects\BibliotecaSwing\src\main\java\models\UsuarioPerfiles.java
 C:\Users\leonl\Documents\NetBeansProjects\BibliotecaSwing\src\main\java\models\Cajones.java

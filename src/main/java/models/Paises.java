@@ -54,7 +54,7 @@ public class Paises {
     public boolean save() {
         try {
             Map<String, Object> params = new HashMap<>();
-            String query = "insert into paises(codigo,nombre) values(:codigo,:nombre)";
+            String query = "insert into paises(nombre) values(:nombre)";
             if (codigo != null) {
                 query = "update paises set nombre=:nombre where codigo=:codigo";
                 params.put("codigo", this.codigo);
@@ -77,7 +77,8 @@ public class Paises {
         try {
             while (rs.next()) {
                 list.add(new Paises(
-                        rs.getInt(1)
+                        rs.getInt(1),
+                        rs.getString(2)
                 ));
             }
         } catch (Exception e) {

@@ -52,7 +52,7 @@ public class Sucursales {
     public boolean save() {
         try {
             Map<String, Object> params = new HashMap<>();
-            String query = "insert into sucursales(codigo,nombre) values(:codigo,:nombre)";
+            String query = "insert into sucursales(nombre) values(:nombre)";
             if (codigo != null) {
                 query = "update sucursales set nombre=:nombre where codigo=:codigo";
                 params.put("codigo", this.codigo);
@@ -75,7 +75,8 @@ public class Sucursales {
         try {
             while (rs.next()) {
                 list.add(new Sucursales(
-                        rs.getInt(1)
+                        rs.getInt(1),
+                        rs.getString(2)
                 ));
             }
         } catch (Exception e) {
