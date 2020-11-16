@@ -10,10 +10,6 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.Paises;
 
-/**
- *
- * @author leonl
- */
 public class JFPaises extends javax.swing.JFrame {
 
     Paises pai;

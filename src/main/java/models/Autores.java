@@ -65,13 +65,13 @@ public class Autores {
     public boolean save() {
         try {
             Map<String, Object> params = new HashMap<>();
-            String query = "insert into autores(codigo,nombre,codigo_pais) values(:codigo,:nombre,:codigo_pais)";
+            String query = "insert into autores(nombre,codigo_pais) values(:nombre,:codigo_pais)";
             if (this.codigo != null) {
                 query = "update autores set nombre=:nombre,codigo_pais=:codigo_pais where codigo=:codigo";
                 params.put("codigo", this.codigo);
             }
             params.put("nombre", this.nombre);
-            params.put("codigo_pais", this.codigoPais);
+            params.put("codigo_pais", this.codigoPais.getCodigo());
             JDBCMySQL msql = new JDBCMySQL();
             return msql.execute(query, params);
         } catch (Exception e) {

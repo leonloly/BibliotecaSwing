@@ -44,6 +44,9 @@ public class Estantes {
     }
 
     public List<Cajones> getCajonesList() {
+        if(this.cajonesList == null){
+            this.cajonesList = new Cajones().ListbyCajonLibros(1);
+        }
         return cajonesList;
     }
 
@@ -62,13 +65,13 @@ public class Estantes {
     public boolean save() {
         try {
             Map<String, Object> params = new HashMap<>();
-            String query = "insert into estantes(codigo,cajones,codigo_sucuarsal) values(:codigo,:cajones,:codigo_sucuarsal)";
+            String query = "insert into estantes(cajones,codigo_sucuarsal) values(:cajones,:codigo_sucuarsal)";
             if (codigo != null) {
                 query = "update estantes set cajones=:cajones,codigo_sucuarsal=:codigo_sucuarsal where codigo=:codigo";
                 params.put("codigo", this.codigo);
             }
             params.put("cajones", this.cajones);
-            params.put("codigo_sucuarsal", this.codigoSucuarsal);
+            params.put("codigo_sucuarsal", this.codigoSucuarsal.getCodigo());
             JDBCMySQL msql = new JDBCMySQL();
             return msql.execute(query, params);
         } catch (Exception e) {
@@ -115,9 +118,9 @@ public class Estantes {
         }
         return null;
     }
-
-    public static void main(String[] args){
-        Estantes a = Estantes.find(1);
-        System.out.println(a.getCajones());
-    }
+//
+//    public static void main(String[] args){
+//        Estantes a = Estantes.find(1);
+//        System.out.println(a.getCajones());
+//    }
 }

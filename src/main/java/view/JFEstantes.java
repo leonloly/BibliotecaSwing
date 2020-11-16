@@ -1,19 +1,18 @@
 package view;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import models.Autores;
-import models.Paises;
+import models.Estantes;
+import models.Sucursales;
 
-public class JFAutores extends javax.swing.JFrame {
-    
-    Autores aut;
+public class JFEstantes extends javax.swing.JFrame {
+
+    Estantes est;
     boolean edit = false;
-    List<Autores> dataList;
-  
-    public JFAutores() {
+    List<Estantes> dataList;
+
+    public JFEstantes() {
         initComponents();
     }
 
@@ -26,25 +25,18 @@ public class JFAutores extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jfAutor = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jfCajones = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableAutor = new javax.swing.JTable();
+        jTableEstantes = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                formMouseClicked(evt);
-            }
-        });
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
         });
-
-        jLabel1.setText("Nombre del autor");
 
         jButton1.setText("Guardar");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -53,22 +45,24 @@ public class JFAutores extends javax.swing.JFrame {
             }
         });
 
-        jTableAutor.setModel(new javax.swing.table.DefaultTableModel(
+        jLabel1.setText("Cantidad de cajones");
+
+        jTableEstantes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Nombre autor"
+                "Id", "Cajones"
             }
         ));
-        jTableAutor.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTableEstantes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableAutorMouseClicked(evt);
+                jTableEstantesMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTableAutor);
-        if (jTableAutor.getColumnModel().getColumnCount() > 0) {
-            jTableAutor.getColumnModel().getColumn(1).setResizable(false);
+        jScrollPane1.setViewportView(jTableEstantes);
+        if (jTableEstantes.getColumnModel().getColumnCount() > 0) {
+            jTableEstantes.getColumnModel().getColumn(0).setResizable(false);
         }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -76,72 +70,78 @@ public class JFAutores extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(21, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jfAutor)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18))
+                .addGap(50, 50, 50)
+                .addComponent(jLabel1)
+                .addGap(31, 31, 31)
+                .addComponent(jfCajones)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addGap(87, 87, 87))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jfAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addGap(63, 63, 63)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(106, Short.MAX_VALUE))
+                    .addComponent(jButton1)
+                    .addComponent(jfCajones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_formMouseClicked
+    private void jTableEstantesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableEstantesMouseClicked
+        est = dataList.get(jTableEstantes.getSelectedRow());
+        jfCajones.setText(est.getCajones().toString());
+        edit = true;
+    }//GEN-LAST:event_jTableEstantesMouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         showData();
     }//GEN-LAST:event_formWindowOpened
 
-    private void jTableAutorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableAutorMouseClicked
-         
-        aut = dataList.get(jTableAutor.getSelectedRow());
-        jfAutor.setText(aut.getNombre());
-        edit = true;
-    }//GEN-LAST:event_jTableAutorMouseClicked
-
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        Paises codigoPais = new Paises().find(1);
-        if (jfAutor.getText().isEmpty()){
+        Sucursales codigoPais = new Sucursales().find(1);
+        if (jfCajones.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "No debe dejar campos vacios");
             return;
         }
         if (!edit) {
-            aut = new Autores();
+            est = new Estantes();
         }
-        aut.setNombre(jfAutor.getText());
-        aut.setCodigoPais(codigoPais);
+        est.setCajones(Integer.parseInt(jfCajones.getText()));
+        est.setCodigoSucuarsal(codigoPais);
 
-        if (aut.save()) {
+        if (est.save()) {
             JOptionPane.showMessageDialog(this, (edit ? "Editado" : "Creado") + " correctamente");
-            jfAutor.setText("");
+            jfCajones.setText("");
             edit = false;
         } else {
-            JOptionPane.showMessageDialog(this, "Error al registrar Autores");
+            JOptionPane.showMessageDialog(this, "Error al registrar Estantes");
             return;
         }
         showData();
     }//GEN-LAST:event_jButton1MouseClicked
+    void showData() {
+        DefaultTableModel model = (DefaultTableModel) jTableEstantes.getModel();
+        dataList = (new Estantes()).list();
+        while (model.getRowCount() > 0) {
+            model.removeRow(0);
+        }
+
+        for (Estantes s : dataList) {
+            Object[] row = {s.getCodigo(), s.getCajones().toString()};
+            model.addRow(row);
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -160,40 +160,29 @@ public class JFAutores extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFAutores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFEstantes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFAutores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFEstantes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFAutores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFEstantes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFAutores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFEstantes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JFAutores().setVisible(true);
+                new JFEstantes().setVisible(true);
             }
         });
     }
-   void showData() {
-        DefaultTableModel model = (DefaultTableModel) jTableAutor.getModel();
-        dataList = (new Autores()).list();
-        while (model.getRowCount() > 0) {
-            model.removeRow(0);
-        }
-        
-        for (Autores s : dataList) {
-            Object[] row = {s.getCodigo(), s.getNombre()};
-            model.addRow(row);
-        }
-    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableAutor;
-    private javax.swing.JTextField jfAutor;
+    private javax.swing.JTable jTableEstantes;
+    private javax.swing.JTextField jfCajones;
     // End of variables declaration//GEN-END:variables
 }
