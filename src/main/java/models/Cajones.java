@@ -65,13 +65,13 @@ public class Cajones {
     public boolean save() {
         try {
             Map<String, Object> params = new HashMap<>();
-            String query = "insert into cajones(codigo,cantidad,codigo_estante) values(:codigo,:cantidad,:codigo_estante)";
+            String query = "insert into cajones(cantidad,codigo_estante) values(:cantidad,:codigo_estante)";
             if (codigo != null) {
                 query = "update cajones set cantidad=:cantidad,codigo_estante=:codigo_estante where codigo=:codigo";
                 params.put("codigo", this.codigo);
             }
             params.put("cantidad", this.cantidad);
-            params.put("codigo_estante", this.codigoEstante);
+            params.put("codigo_estante", this.codigoEstante.getCodigo());
             JDBCMySQL msql = new JDBCMySQL();
             return msql.execute(query, params);
         } catch (Exception e) {

@@ -75,7 +75,7 @@ public class Proveedores {
     public boolean save() {
         try {
             Map<String, Object> params = new HashMap<>();
-            String query = "insert into proveedores(codigo,nombre,telefono,correo) values(:codigo,:nombre,:telefono,:correo)";
+            String query = "insert into proveedores(nombre,telefono,correo) values(:nombre,:telefono,:correo)";
             if (codigo != null) {
                 query = "update proveedores set nombre=:nombre,telefono=:telefono,correo=:correo where codigo=:codigo";
                 params.put("codigo", this.codigo);
