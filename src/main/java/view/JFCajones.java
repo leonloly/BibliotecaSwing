@@ -1,5 +1,6 @@
 package view;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -11,6 +12,7 @@ public class JFCajones extends javax.swing.JFrame {
     Cajones caj;
     boolean edit = false;
     List<Cajones> dataList;
+    List<Object[]> estantesList = new ArrayList<>();
     
  void showData() {
         DefaultTableModel model = (DefaultTableModel) jTableCajones.getModel();
