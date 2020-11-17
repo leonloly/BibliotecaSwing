@@ -1,9 +1,13 @@
 package view;
 
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import models.Autores;
 import models.Estantes;
+import models.Paises;
 import models.Sucursales;
 
 public class JFEstantes extends javax.swing.JFrame {
@@ -11,6 +15,7 @@ public class JFEstantes extends javax.swing.JFrame {
     Estantes est;
     boolean edit = false;
     List<Estantes> dataList;
+    List<Object[]> sucursalList = new ArrayList<>();
 
     public JFEstantes() {
         initComponents();
@@ -30,6 +35,7 @@ public class JFEstantes extends javax.swing.JFrame {
         jfCajones = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableEstantes = new javax.swing.JTable();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -52,7 +58,7 @@ public class JFEstantes extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Cajones"
+                "Id", "Cajones", "Sucursal"
             }
         ));
         jTableEstantes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -65,34 +71,49 @@ public class JFEstantes extends javax.swing.JFrame {
             jTableEstantes.getColumnModel().getColumn(0).setResizable(false);
         }
 
+        jButton2.setText("Sucursal");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(jLabel1)
                 .addGap(31, 31, 31)
-                .addComponent(jfCajones)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addGap(87, 87, 87))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addComponent(jfCajones, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                .addGap(41, 41, 41)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2)
+                    .addComponent(jButton1))
+                .addGap(59, 59, 59))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jButton1)
-                    .addComponent(jfCajones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jfCajones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addGap(16, 16, 16))
         );
 
         pack();
@@ -109,36 +130,56 @@ public class JFEstantes extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        Sucursales codigoPais = new Sucursales().find(1);
-        if (jfCajones.getText().isEmpty()) {
+         if (jfCajones.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "No debe dejar campos vacios");
             return;
         }
         if (!edit) {
             est = new Estantes();
         }
-        est.setCajones(Integer.parseInt(jfCajones.getText()));
-        est.setCodigoSucuarsal(codigoPais);
+        est.setCajones(Integer.valueOf(jfCajones.getText()));
 
-        if (est.save()) {
-            JOptionPane.showMessageDialog(this, (edit ? "Editado" : "Creado") + " correctamente");
-            jfCajones.setText("");
-            edit = false;
+        if (sucursalList.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Seleccionar una sucursal");
         } else {
-            JOptionPane.showMessageDialog(this, "Error al registrar Estantes");
-            return;
+
+            Sucursales su = new Sucursales();
+            Object[] row = sucursalList.get(0);
+            su.setCodigo(Integer.parseInt(row[0].toString()));
+            est.setCodigoSucuarsal(su);
+
+            if (est.save()) {
+                JOptionPane.showMessageDialog(this, (edit ? "Editado" : "Creado") + " correctamente");
+                jfCajones.setText("");
+                edit = false;
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al registrar Estantes");
+                return;
+            }
+            showData();
         }
-        showData();
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        JFSearch js = new JFSearch("SELECT * FROM sucursales", null, JFSearch.SINGLE);
+        js.setVisible(true);
+        js.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+                super.windowDeactivated(e);
+                sucursalList = JFSearch.selected;
+            }
+        });
+    }//GEN-LAST:event_jButton2MouseClicked
     void showData() {
-        DefaultTableModel model = (DefaultTableModel) jTableEstantes.getModel();
+       DefaultTableModel model = (DefaultTableModel) jTableEstantes.getModel();
         dataList = (new Estantes()).list();
         while (model.getRowCount() > 0) {
             model.removeRow(0);
         }
 
         for (Estantes s : dataList) {
-            Object[] row = {s.getCodigo(), s.getCajones().toString()};
+            Object[] row = {s.getCodigo(), s.getCajones(),s.getCodigoSucuarsal().getNombre()};
             model.addRow(row);
         }
     }
@@ -180,6 +221,7 @@ public class JFEstantes extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableEstantes;
