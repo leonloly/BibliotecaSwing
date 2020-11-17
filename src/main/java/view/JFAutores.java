@@ -1,6 +1,8 @@
 package view;
 
+import java.awt.event.WindowEvent;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -8,11 +10,12 @@ import models.Autores;
 import models.Paises;
 
 public class JFAutores extends javax.swing.JFrame {
-    
+
     Autores aut;
     boolean edit = false;
     List<Autores> dataList;
-  
+    List<Object[]> paisesList = new ArrayList<>();
+
     public JFAutores() {
         initComponents();
     }
@@ -31,6 +34,7 @@ public class JFAutores extends javax.swing.JFrame {
         jfAutor = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableAutor = new javax.swing.JTable();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addMouseListener(new java.awt.event.MouseAdapter() {
@@ -58,7 +62,7 @@ public class JFAutores extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Nombre autor"
+                "ID", "Nombre autor", "Pais"
             }
         ));
         jTableAutor.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -71,22 +75,32 @@ public class JFAutores extends javax.swing.JFrame {
             jTableAutor.getColumnModel().getColumn(1).setResizable(false);
         }
 
+        jButton2.setText("Pais");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(21, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jfAutor)
+                        .addComponent(jfAutor, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
@@ -96,10 +110,12 @@ public class JFAutores extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jfAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addGap(63, 63, 63)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(106, Short.MAX_VALUE))
+                    .addComponent(jButton2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pack();
@@ -114,7 +130,7 @@ public class JFAutores extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void jTableAutorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableAutorMouseClicked
-         
+
         aut = dataList.get(jTableAutor.getSelectedRow());
         jfAutor.setText(aut.getNombre());
         edit = true;
@@ -122,7 +138,7 @@ public class JFAutores extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         Paises codigoPais = new Paises().find(1);
-        if (jfAutor.getText().isEmpty()){
+        if (jfAutor.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "No debe dejar campos vacios");
             return;
         }
@@ -130,18 +146,41 @@ public class JFAutores extends javax.swing.JFrame {
             aut = new Autores();
         }
         aut.setNombre(jfAutor.getText());
-        aut.setCodigoPais(codigoPais);
 
-        if (aut.save()) {
-            JOptionPane.showMessageDialog(this, (edit ? "Editado" : "Creado") + " correctamente");
-            jfAutor.setText("");
-            edit = false;
+        if (paisesList.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Seleccionar un pais");
         } else {
-            JOptionPane.showMessageDialog(this, "Error al registrar Autores");
-            return;
+
+            Paises p = new Paises();
+            Object[] row = paisesList.get(0);
+            p.setCodigo(Integer.parseInt(row[0].toString()));
+            aut.setCodigoPais(p);
+
+            if (aut.save()) {
+                JOptionPane.showMessageDialog(this, (edit ? "Editado" : "Creado") + " correctamente");
+                jfAutor.setText("");
+                edit = false;
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al registrar Autores");
+                return;
+            }
+            showData();
         }
-        showData();
+
+
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        JFSearch js = new JFSearch("select * from paises", null, JFSearch.SINGLE);
+        js.setVisible(true);
+        js.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+                super.windowDeactivated(e);
+                paisesList = JFSearch.selected;
+            }
+        });
+    }//GEN-LAST:event_jButton2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -177,20 +216,22 @@ public class JFAutores extends javax.swing.JFrame {
             }
         });
     }
-   void showData() {   
+
+    void showData() {
         DefaultTableModel model = (DefaultTableModel) jTableAutor.getModel();
         dataList = (new Autores()).list();
         while (model.getRowCount() > 0) {
             model.removeRow(0);
         }
-        
+
         for (Autores s : dataList) {
-            Object[] row = {s.getCodigo(), s.getNombre()};
+            Object[] row = {s.getCodigo(), s.getNombre(),s.getCodigoPais().getNombre()};
             model.addRow(row);
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableAutor;

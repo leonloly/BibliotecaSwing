@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
@@ -27,10 +28,10 @@ import utils.JDBCMySQL;
  * @author moi
  */
 public class JFSearch extends javax.swing.JFrame {
-    
+
     public static int MULTIPLE = 1;
     public static int SINGLE = 0;
-    public static List<Object> selected;
+    public static List<Object[]> selected;
 
     /**
      * Creates new form JFSearch
@@ -42,8 +43,9 @@ public class JFSearch extends javax.swing.JFrame {
         initComponents();
         JDBCMySQL mysql = new JDBCMySQL();
         if (mode == JFSearch.MULTIPLE) {
-            JTable.setRowSelectionAllowed(true);
             JTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        } else {
+            JTable.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         }
         try {
             ResultSet rs = mysql.query(query, params);
@@ -52,7 +54,7 @@ public class JFSearch extends javax.swing.JFrame {
             for (int i = 0; i < rsm.getColumnCount(); i++) {
                 dtm.addColumn(rsm.getColumnName(i + 1));
             }
-            
+
             while (rs.next()) {
                 Object[] row = new Object[rsm.getColumnCount()];
                 for (int i = 0; i < row.length; i++) {
@@ -160,15 +162,24 @@ public class JFSearch extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextActionPerformed
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        List<Object> list = new ArrayList<>();
+        List<Object[]> list = new ArrayList<>();
         DefaultTableModel model = (DefaultTableModel) JTable.getModel();
-        for (int i = 0; i < JTable.getSelectedRows().length; i++) {
-            list.add(model.getDataVector().elementAt(i).toArray());
+
+        if (JTable.getSelectionModel().getSelectionMode() == ListSelectionModel.SINGLE_INTERVAL_SELECTION) {
+            list.add(model.getDataVector().elementAt(JTable.getSelectedRow()).toArray());
+        } else {
+            for (int i = 0; i < JTable.getSelectedRows().length; i++) {
+                list.add(model.getDataVector().elementAt(i).toArray());
+            }
         }
+
+        if (list.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Seleccionar un Elemento");
+        }
+        
         JFSearch.selected = list;
         this.setVisible(false);
         this.dispose();
-        
     }//GEN-LAST:event_jButton2MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

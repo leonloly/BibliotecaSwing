@@ -15,26 +15,18 @@ import view.JFSearch;
  */
 public class testsearch {
 
-    List<Object> params;
-
-    void response(List<Object> params) {
-        System.out.println("testsearch.response()");
-    }
+    List<Object[]> params;
 
     void call() {
-        JFSearch js = new JFSearch("Select * from paises", null, JFSearch.MULTIPLE);
+        JFSearch js = new JFSearch("select * from (select a.codigo,a.nombre as autor, p.nombre as pais from autores a  join paises p  on p.codigo = a.codigo_pais) as t", null, JFSearch.MULTIPLE);
         js.setVisible(true);
         js.addWindowListener(new java.awt.event.WindowAdapter() {
-
             @Override
             public void windowDeactivated(WindowEvent e) {
-                super.windowDeactivated(e); //To change body of generated methods, choose Tools | Templates.
-                 params = JFSearch.selected;
+                super.windowDeactivated(e);
+                params = JFSearch.selected;
 
             }
-
-            
-
         });
     }
 
