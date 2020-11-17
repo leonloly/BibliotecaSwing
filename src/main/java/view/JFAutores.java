@@ -177,7 +177,7 @@ public class JFAutores extends javax.swing.JFrame {
             }
         });
     }
-   void showData() {
+   void showData() {   
         DefaultTableModel model = (DefaultTableModel) jTableAutor.getModel();
         dataList = (new Autores()).list();
         while (model.getRowCount() > 0) {
