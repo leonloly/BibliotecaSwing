@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -16,13 +17,13 @@ public class JFCajones extends javax.swing.JFrame {
     
  void showData() {
         DefaultTableModel model = (DefaultTableModel) jTableCajones.getModel();
-        dataList = (new Cajones().List());
+        dataList = (new Cajones()).List();
         while (model.getRowCount() > 0) {
             model.removeRow(0);
         }
 
         for (Cajones s : dataList) {
-            Object[] row = {s.getCodigo(), s.getCantidad().toString()};
+            Object[] row = {s.getCodigo(), s.getCantidad(),s.getCodigoEstante().getCajones()};
             model.addRow(row);
         }
     }
@@ -44,6 +45,7 @@ public class JFCajones extends javax.swing.JFrame {
         jfCajones = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableCajones = new javax.swing.JTable();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -52,7 +54,7 @@ public class JFCajones extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Cantidad de cajones");
+        jLabel1.setText("Cantidad");
 
         jButton1.setText("Guardar");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -66,7 +68,7 @@ public class JFCajones extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Cantidad de cajones"
+                "Id", "Cantidad de libros", "Cantidad de cajones"
             }
         ));
         jTableCajones.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -75,6 +77,13 @@ public class JFCajones extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jTableCajones);
+
+        jButton2.setText("Estante");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -86,23 +95,31 @@ public class JFCajones extends javax.swing.JFrame {
                         .addContainerGap(22, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addGap(37, 37, 37)
                         .addComponent(jLabel1)
-                        .addGap(28, 28, 28)
+                        .addGap(31, 31, 31)
                         .addComponent(jfCajones, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(27, 27, 27))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jButton1)
-                    .addComponent(jfCajones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(56, 56, 56)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jfCajones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(72, Short.MAX_VALUE))
         );
@@ -121,7 +138,6 @@ public class JFCajones extends javax.swing.JFrame {
     }//GEN-LAST:event_jTableCajonesMouseClicked
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        Estantes codigo = new Estantes().find(1);
         if (jfCajones.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "No debe dejar campos vacios");
             return;
@@ -129,19 +145,40 @@ public class JFCajones extends javax.swing.JFrame {
         if (!edit) {
             caj = new Cajones();
         }
-        caj.setCantidad(Integer.parseInt(jfCajones.getText()));
-        caj.setCodigoEstante(codigo);
+        caj.setCantidad(Integer.valueOf(jfCajones.getText()));
 
-        if (caj.save()) {
-            JOptionPane.showMessageDialog(this, (edit ? "Editado" : "Creado") + " correctamente");
-            jfCajones.setText("");
-            edit = false;
+        if (estantesList.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Seleccionar un Estantes");
         } else {
-            JOptionPane.showMessageDialog(this, "Error al registrar Cajones");
-            return;
+
+            Estantes es = new Estantes();
+            Object[] row = estantesList.get(0);
+            es.setCodigo(Integer.parseInt(row[0].toString()));
+            caj.setCodigoEstante(es);
+
+            if (caj.save()) {
+                JOptionPane.showMessageDialog(this, (edit ? "Editado" : "Creado") + " correctamente");
+                jfCajones.setText("");
+                edit = false;
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al registrar Autores");
+                return;
+            }
+            showData();
         }
-        showData();
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+         JFSearch js = new JFSearch("select * from estantes", null, JFSearch.SINGLE);
+        js.setVisible(true);
+        js.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+                super.windowDeactivated(e);
+                estantesList = JFSearch.selected;
+            }
+        });
+    }//GEN-LAST:event_jButton2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -180,6 +217,7 @@ public class JFCajones extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableCajones;

@@ -83,7 +83,7 @@ public class Usuarios {
     public boolean save() {
         try {
             Map<String, Object> params = new HashMap<>();
-            String query = "insert into usuarios(codigo,nombre,apellido,carnet,codigo_perfil) values(:codigo,:nombre,:apellido,:carnet,:codigo_perfil)";
+            String query = "insert into usuarios(nombre,apellido,carnet,codigo_perfil) values(:nombre,:apellido,:carnet,:codigo_perfil)";
             if (codigo != null) {
                 query = "update usuarios set nombre=:nombre,apellido=:apellido,carnet=:carnet,codigo_perfil=:codigo_perfil where codigo=:codigo";
                 params.put("codigo", this.codigo);
@@ -91,7 +91,7 @@ public class Usuarios {
             params.put("nombre", this.nombre);
             params.put("apellido", this.apellido);
             params.put("carnet", this.carnet);
-            params.put("codigo_perfil", this.codigoPerfil);
+            params.put("codigo_perfil", this.codigoPerfil.getCodigo());
             JDBCMySQL msql = new JDBCMySQL();
             return msql.execute(query, params);
         } catch (Exception e) {

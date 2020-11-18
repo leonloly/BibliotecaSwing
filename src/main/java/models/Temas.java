@@ -52,7 +52,7 @@ public class Temas {
     public boolean save() {
         try {
             Map<String, Object> params = new HashMap<>();
-            String query = "insert into temas(codigo,nombre) values(:codigo,:nombre)";
+            String query = "insert into temas(nombre) values(:nombre)";
             if (codigo != null) {
                 query = "update temas set nombre=:nombre where codigo=:codigo";
                 params.put("codigo", this.codigo);

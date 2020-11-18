@@ -161,7 +161,7 @@ public class Libros {
     public boolean save() {
         try {
             Map<String, Object> params = new HashMap<>();
-            String query = "insert into libros(codigo,titulo,etiqueta,publicado,edicion,isbn,precio_renta,codigo_clasificacion,codigo_autor,codigo_tipo) values(:codigo,:titulo,:etiqueta,:publicado,:edicion,:isbn,:precio_renta,:codigo_clasificacion,:codigo_autor,:codigo_tipo)";
+            String query = "insert into libros(titulo,etiqueta,publicado,edicion,isbn,precio_renta,codigo_clasificacion,codigo_autor,codigo_tipo) values(:titulo,:etiqueta,:publicado,:edicion,:isbn,:precio_renta,:codigo_clasificacion,:codigo_autor,:codigo_tipo)";
             if (codigo != null) {
                 query = "update libros set titulo=:titulo,etiqueta=:etiqueta,publicado=:publicado,edicion=:edicion,isbn=:isbn,precio_renta=:precio_renta,codigo_clasificacion=:codigo_clasificacion,codigo_autor=:codigo_autor,codigo_tipo=:codigo_tipo where codigo=:codigo";
                 params.put("codigo", this.codigo);
@@ -172,9 +172,9 @@ public class Libros {
             params.put("edicion", this.edicion);
             params.put("isbn", this.isbn);
             params.put("precio_renta", this.precioRenta);
-            params.put("codigo_clasificacion", this.codigoClasificacion);
-            params.put("codigo_autor", this.codigoAutor);
-            params.put("codigo_tipo", this.codigoTipo);
+            params.put("codigo_clasificacion", this.codigoClasificacion.getCodigo());
+            params.put("codigo_autor", this.codigoAutor.getCodigo());
+            params.put("codigo_tipo", this.codigoTipo.getCodigo());
             JDBCMySQL msql = new JDBCMySQL();
             return msql.execute(query, params);
         } catch (Exception e) {

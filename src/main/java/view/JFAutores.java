@@ -142,7 +142,6 @@ public class JFAutores extends javax.swing.JFrame {
     }//GEN-LAST:event_jTableAutorMouseClicked
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        Paises codigoPais = new Paises().find(1);
         if (jfAutor.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "No debe dejar campos vacios");
             return;

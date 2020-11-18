@@ -52,7 +52,7 @@ public class LibroTipos {
     public boolean save() {
         try {
             Map<String, Object> params = new HashMap<>();
-            String query = "insert into libro_tipos(codigo,nombre) values(:codigo,:nombre)";
+            String query = "insert into libro_tipos(nombre) values(:nombre)";
             if (codigo != null) {
                 query = "update libro_tipos set nombre=:nombre where codigo=:codigo";
                 params.put("codigo", this.codigo);
