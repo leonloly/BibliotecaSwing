@@ -318,7 +318,6 @@ public class JFLibros extends javax.swing.JFrame {
             }
             showData();
         }
-
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
@@ -326,7 +325,7 @@ public class JFLibros extends javax.swing.JFrame {
         js.setVisible(true);
         js.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
-            public void windowDeactivated(WindowEvent e) {
+        public void windowDeactivated(WindowEvent e) {
                 super.windowDeactivated(e);
                 clasificacionList = JFSearch.selected;
             }
@@ -334,11 +333,11 @@ public class JFLibros extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3MouseClicked
 
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
-       JFSearch js = new JFSearch("select * from autores", null, JFSearch.SINGLE);
+        JFSearch js = new JFSearch("select * from autores", null, JFSearch.SINGLE);
         js.setVisible(true);
         js.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
-            public void windowDeactivated(WindowEvent e) {
+        public void windowDeactivated(WindowEvent e) {
                 super.windowDeactivated(e);
                 autoresList = JFSearch.selected;
             }
@@ -346,11 +345,11 @@ public class JFLibros extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4MouseClicked
 
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
-         JFSearch js = new JFSearch("select * from libro_tipos", null, JFSearch.SINGLE);
+        JFSearch js = new JFSearch("select * from libro_tipos", null, JFSearch.SINGLE);
         js.setVisible(true);
         js.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
-            public void windowDeactivated(WindowEvent e) {
+        public void windowDeactivated(WindowEvent e) {
                 super.windowDeactivated(e);
                 tipoList = JFSearch.selected;
             }
@@ -379,13 +378,33 @@ public class JFLibros extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFLibros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFLibros
+
+.class  
+
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFLibros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFLibros
+
+.class  
+
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFLibros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFLibros
+
+.class  
+
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFLibros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFLibros
+
+.class  
+
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
