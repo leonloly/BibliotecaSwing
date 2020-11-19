@@ -2,6 +2,7 @@ package view;
 
 import java.awt.event.WindowEvent;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,6 +12,7 @@ import models.Autores;
 import models.LibroClasificaciones;
 import models.LibroTipos;
 import models.Libros;
+import utils.Validation;
 
 public class JFLibros extends javax.swing.JFrame {
 
@@ -104,6 +106,19 @@ public class JFLibros extends javax.swing.JFrame {
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton2MouseClicked(evt);
+            }
+        });
+
+        jtPublicacion.setText("2020/10/01");
+        jtPublicacion.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtPublicacionFocusLost(evt);
+            }
+        });
+
+        jtEdicion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtEdicionKeyTyped(evt);
             }
         });
 
@@ -249,11 +264,13 @@ public class JFLibros extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void jTableLibrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableLibrosMouseClicked
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
         lib = dataList.get(jTableLibros.getSelectedRow());
-
+        String fecha = format.format(lib.getPublicado());
+        
         jtTitulo.setText(lib.getTitulo());
         jtEtiqueta.setText(lib.getEtiqueta());
-        jtPublicacion.setText(String.valueOf(lib.getPublicado()));
+        jtPublicacion.setText(fecha);
         jtEdicion.setText(String.valueOf(lib.getEdicion()));
         jtIsbn.setText(lib.getIsbn());
         jtPrecioRenta.setText(String.valueOf(lib.getPrecioRenta()));
@@ -274,6 +291,9 @@ public class JFLibros extends javax.swing.JFrame {
         if (!edit) {
             lib = new Libros();
         }
+//        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+//        String fecha = format.format(jtPublicacion);
+        
         lib.setTitulo(jtTitulo.getText());
         lib.setEtiqueta(jtEtiqueta.getText());
         lib.setPublicado(new Date(jtPublicacion.getText()));
@@ -361,6 +381,21 @@ public class JFLibros extends javax.swing.JFrame {
         this.setVisible(false);
         dispose();
     }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jtPublicacionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtPublicacionFocusLost
+        if (!Validation.validDate(jtEdicion.getText())) {
+            JOptionPane.showMessageDialog(this, "Formato de fecha no correcta");
+            jtEdicion.setText("");
+        }
+    }//GEN-LAST:event_jtPublicacionFocusLost
+
+    private void jtEdicionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtEdicionKeyTyped
+        char c = evt.getKeyChar();
+        if (!(Character.isDigit(c) || c == evt.VK_BACK_SPACE || c == evt.VK_DELETE)) {
+            evt.consume();
+            return;
+        }
+    }//GEN-LAST:event_jtEdicionKeyTyped
 
     /**
      * @param args the command line arguments

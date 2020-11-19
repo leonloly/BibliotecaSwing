@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -160,6 +161,8 @@ public class Libros {
 
     public boolean save() {
         try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            String fecha = format.format(this.publicado);
             Map<String, Object> params = new HashMap<>();
             String query = "insert into libros(titulo,etiqueta,publicado,edicion,isbn,precio_renta,codigo_clasificacion,codigo_autor,codigo_tipo) values(:titulo,:etiqueta,:publicado,:edicion,:isbn,:precio_renta,:codigo_clasificacion,:codigo_autor,:codigo_tipo)";
             if (codigo != null) {
@@ -168,7 +171,7 @@ public class Libros {
             }
             params.put("titulo", this.titulo);
             params.put("etiqueta", this.etiqueta);
-            params.put("publicado", this.publicado);
+            params.put("publicado", fecha);
             params.put("edicion", this.edicion);
             params.put("isbn", this.isbn);
             params.put("precio_renta", this.precioRenta);
@@ -176,6 +179,7 @@ public class Libros {
             params.put("codigo_autor", this.codigoAutor.getCodigo());
             params.put("codigo_tipo", this.codigoTipo.getCodigo());
             JDBCMySQL msql = new JDBCMySQL();
+            
             return msql.execute(query, params);
         } catch (Exception e) {
             System.err.println("Error al guardar libros");

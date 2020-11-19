@@ -5,6 +5,7 @@ view\JFClasificaciones$2.class
 view\JFLibros$2.class
 view\JFPaises$1.class
 view\JFUsuario$5.class
+view\JFLibros$12.class
 models\Configuraciones.class
 view\JFTemas$2.class
 view\JFAutores$3.class
@@ -33,6 +34,7 @@ view\JFEstantes.class
 view\JFUsuario$6.class
 view\JFTemas$1.class
 view\JFSearch$3.class
+view\JFLibros$13.class
 view\JFProveedores$4.class
 utils\Validation.class
 view\JFLibros$6.class
@@ -48,6 +50,7 @@ view\JFCajones.class
 view\JFCajones$3.class
 view\JFSucursales$1.class
 view\JFTemas.class
+view\JFLibros$11.class
 view\JFSearch$2.class
 view\JFAutores$1.class
 view\JFAutores$4.class
