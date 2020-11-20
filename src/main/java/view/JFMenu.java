@@ -1,16 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import models.Usuarios;
 
-/**
- *
- * @author BirdPC
- */
 public class JFMenu extends javax.swing.JFrame {
 
     Usuarios user;
@@ -21,8 +12,24 @@ public class JFMenu extends javax.swing.JFrame {
     public JFMenu(Usuarios user) {
         initComponents();
         this.user = user;
-        if(user.getCodigoPerfil().getCodigo() != 1){
+        if(user.getCodigoPerfil().getCodigo() ==2){
             JBAutores.setVisible(false);
+            JBCajones.setVisible(false);
+            JBClasificacion.setVisible(false);
+            JBEstantes.setVisible(false);
+            JBLibro.setVisible(false);
+            JBPaises.setVisible(false);
+            JBProveedores.setVisible(false);
+            JBSucursal.setVisible(false);
+            JBTemas.setVisible(false);
+            JBTipos.setVisible(false);
+            JBUsuario.setVisible(false);
+        }else if (user.getCodigoPerfil().getCodigo() == 3) {
+            JBAutores.setVisible(false);
+            JBCajones.setVisible(false);
+            JBClasificacion.setVisible(false);
+            JBEstantes.setVisible(false);
+            JBLibro.setVisible(false);
         }
       
     }
@@ -37,47 +44,61 @@ public class JFMenu extends javax.swing.JFrame {
     private void initComponents() {
 
         JBAutores = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
+        JBCajones = new javax.swing.JButton();
+        JBClasificacion = new javax.swing.JButton();
+        JBEstantes = new javax.swing.JButton();
+        JBPaises = new javax.swing.JButton();
+        JBProveedores = new javax.swing.JButton();
+        JBSucursal = new javax.swing.JButton();
+        JBTemas = new javax.swing.JButton();
+        JBTipos = new javax.swing.JButton();
+        JBUsuario = new javax.swing.JButton();
+        JBBuscar = new javax.swing.JButton();
+        JBLibro = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         JBAutores.setText("Autores");
 
-        jButton2.setText("Cajones");
-
-        jButton3.setText("Clasificacion");
-
-        jButton4.setText("Estantes");
-
-        jButton5.setText("Paises");
-
-        jButton6.setText("Proveedores");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+        JBCajones.setText("Cajones");
+        JBCajones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JBCajonesMouseClicked(evt);
             }
         });
 
-        jButton7.setText("Sucursales");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        JBClasificacion.setText("Clasificacion");
+
+        JBEstantes.setText("Estantes");
+
+        JBPaises.setText("Paises");
+
+        JBProveedores.setText("Proveedores");
+        JBProveedores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                JBProveedoresActionPerformed(evt);
             }
         });
 
-        jButton8.setText("Temas");
+        JBSucursal.setText("Sucursales");
+        JBSucursal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBSucursalActionPerformed(evt);
+            }
+        });
 
-        jButton9.setText("Tipos");
+        JBTemas.setText("Temas");
 
-        jButton10.setText("Usuario");
+        JBTipos.setText("Tipos");
+
+        JBUsuario.setText("Usuario");
+
+        JBBuscar.setText("Buscar");
+
+        JBLibro.setText("Libro");
+
+        jLabel1.setText("Biblioteca UDB");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -86,73 +107,90 @@ public class JFMenu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(JBAutores, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(42, 42, 42)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(74, 74, 74)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(JBAutores, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(JBEstantes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(JBSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(JBUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(42, 42, 42)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(80, 80, 80)
-                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(JBLibro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(JBCajones, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                            .addComponent(JBPaises, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(JBTemas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(74, 74, 74)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(JBBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JBTipos, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(JBClasificacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(JBProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addGap(16, 16, 16)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JBAutores)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(JBCajones)
+                    .addComponent(JBClasificacion))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6))
+                    .addComponent(JBEstantes)
+                    .addComponent(JBPaises)
+                    .addComponent(JBProveedores))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton7)
-                    .addComponent(jButton9)
-                    .addComponent(jButton8))
-                .addGap(18, 18, 18)
-                .addComponent(jButton10)
-                .addContainerGap(50, Short.MAX_VALUE))
+                    .addComponent(JBSucursal)
+                    .addComponent(JBTipos)
+                    .addComponent(JBTemas))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(JBUsuario)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(JBLibro)
+                        .addComponent(JBBuscar)))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void JBSucursalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBSucursalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_JBSucursalActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void JBProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBProveedoresActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_JBProveedoresActionPerformed
+
+    private void JBCajonesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBCajonesMouseClicked
+        JFCajones fCajones = new  JFCajones();
+        fCajones.setVisible(true);
+    }//GEN-LAST:event_JBCajonesMouseClicked
 
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JBAutores;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
+    private javax.swing.JButton JBBuscar;
+    private javax.swing.JButton JBCajones;
+    private javax.swing.JButton JBClasificacion;
+    private javax.swing.JButton JBEstantes;
+    private javax.swing.JButton JBLibro;
+    private javax.swing.JButton JBPaises;
+    private javax.swing.JButton JBProveedores;
+    private javax.swing.JButton JBSucursal;
+    private javax.swing.JButton JBTemas;
+    private javax.swing.JButton JBTipos;
+    private javax.swing.JButton JBUsuario;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

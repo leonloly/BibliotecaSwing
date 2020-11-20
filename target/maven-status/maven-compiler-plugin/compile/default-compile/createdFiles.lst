@@ -2,6 +2,7 @@ view\JFLibro$6.class
 view\JFCajones$2.class
 view\JFTipos$2.class
 models\Paises.class
+view\JFMenu$3.class
 view\JFLibro$10.class
 view\JFLibro$3.class
 view\JFClasificaciones$2.class
@@ -94,6 +95,7 @@ models\MovimientoDetalles.class
 view\JFLibro$11.class
 view\JFPaises.class
 view\JFTemas$5.class
+view\JFAutores$9.class
 view\JFProveedores$1.class
 models\LibroClasificaciones.class
 view\JFFiltro$2.class
