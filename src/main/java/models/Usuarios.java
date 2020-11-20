@@ -16,16 +16,25 @@ public class Usuarios {
     private String carnet;
     private List<Movimientos> movimientosList;
     private UsuarioPerfiles codigoPerfil;
+    private String passworduser;
 
     public Usuarios() {
     }
 
-    public Usuarios(Integer codigo, String nombre, String apellido, String carnet, UsuarioPerfiles codigoPerfil) {
+    public Usuarios(Integer codigo, String nombre, String apellido, String carnet, UsuarioPerfiles codigoPerfil, String passworduser) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.apellido = apellido;
         this.carnet = carnet;
         this.codigoPerfil = codigoPerfil;
+    }
+
+    public String getPassworduser() {
+        return passworduser;
+    }
+
+    public void setPassworduser(String passworduser) {
+        this.passworduser = passworduser;
     }
 
     public Usuarios(Integer codigo) {
@@ -83,7 +92,7 @@ public class Usuarios {
     public boolean save() {
         try {
             Map<String, Object> params = new HashMap<>();
-            String query = "insert into usuarios(nombre,apellido,carnet,codigo_perfil) values(:nombre,:apellido,:carnet,:codigo_perfil)";
+            String query = "insert into usuarios(nombre,apellido,carnet,codigo_perfil, passworduser) values(:nombre,:apellido,:carnet,:codigo_perfil, :passworduser)";
             if (codigo != null) {
                 query = "update usuarios set nombre=:nombre,apellido=:apellido,carnet=:carnet,codigo_perfil=:codigo_perfil where codigo=:codigo";
                 params.put("codigo", this.codigo);
@@ -92,6 +101,7 @@ public class Usuarios {
             params.put("apellido", this.apellido);
             params.put("carnet", this.carnet);
             params.put("codigo_perfil", this.codigoPerfil.getCodigo());
+            params.put("carnet", this.passworduser);
             JDBCMySQL msql = new JDBCMySQL();
             return msql.execute(query, params);
         } catch (Exception e) {
@@ -113,7 +123,8 @@ public class Usuarios {
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),
-                        UsuarioPerfiles.find(rs.getInt(5))
+                        UsuarioPerfiles.find(rs.getInt(5)),
+                        rs.getString(6)
                 ));
             }
         } catch (Exception e) {
@@ -130,15 +141,40 @@ public class Usuarios {
         try {
             rs.next();
             return new Usuarios(
-                        rs.getInt(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getString(4),
-                        UsuarioPerfiles.find(rs.getInt(5))
-         );
-                } catch (Exception e) {
+                    rs.getInt(1),
+                    rs.getString(2),
+                    rs.getString(3),
+                    rs.getString(4),
+                    UsuarioPerfiles.find(rs.getInt(5)),
+                    rs.getString(6)
+            );
+        } catch (Exception e) {
             System.err.println("Error al obtener usuarios");
             System.err.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public Usuarios login(String user, String password) {
+        JDBCMySQL mysql = new JDBCMySQL();
+        String sql = "SELECT * FROM usuarios where carnet = :carnet";
+        Map<String, Object> params = new HashMap<>();
+        params.put("carnet", user);
+        ResultSet rs = mysql.query(sql, params);
+        try {
+            rs.next();
+            this.codigo = rs.getInt(1);
+            this.nombre = rs.getString(2);
+            this.apellido = rs.getString(3);
+            this.carnet = rs.getString(4);
+            this.codigoPerfil = UsuarioPerfiles.find(rs.getInt(5));
+            this.passworduser = rs.getString(6);
+            if (passworduser.equals(password)) {
+                return this;
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Error al inciar sesion");
         }
         return null;
     }
